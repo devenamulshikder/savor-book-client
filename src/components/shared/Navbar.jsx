@@ -88,18 +88,27 @@ const Navbar = () => {
                 </NavLink>
               </ul>
             </div>
-            <a className="text-xl">
-              <Link className="flex items-center">
+            <div className="navbar-start hidden lg:flex">
+              <Link to="/" className="flex items-center gap-2">
                 <img
                   width={70}
                   src="https://i.ibb.co/qMzH7cPp/logo.png"
-                  alt="logo"
+                  alt="Savor Book Logo"
+                  className="h-auto"
                 />
-                <p className="md:text-2xl font-bold hidden md:flex">
+                <span
+                  className="text-2xl font-bold"
+                  style={{
+                    background: "linear-gradient(to right, #ED6F2C, #FF9D4D)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                  }}
+                >
                   Savor Book
-                </p>
+                </span>
               </Link>
-            </a>
+            </div>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 flex gap-7 text-lg items-center">
