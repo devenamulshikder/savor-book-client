@@ -1,11 +1,59 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { FaUser, FaLock, FaGoogle, FaFacebook } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../../providers/AuthProvider";
+import { use, useRef } from "react";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
-  const handleSubmit = (e) => {
+  const { loginUser, setError, googleLogIn, setLoading, forgotPassword } =
+    use(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const emailRef = useRef();
+  // google login
+  const handleGoogleLogin = () => {
+    setError("");
+    googleLogIn()
+      .then(() => {
+        toast.success("Google Login Successfully!");
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  };
+  const handleSignin = (e) => {
+    setError("");
     e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    loginUser(email, password)
+      .then(() => {
+        toast.success("User Login Successfully!");
+        navigate(location?.state ? location?.state : "/");
+      })
+      .catch((err) => {
+        toast.error(err.message && "Please provide correct information!");
+        setLoading(false);
+      });
+  };
+
+  const handleForgot = () => {
+    const email = emailRef.current.value;
+    setError("");
+    forgotPassword(email)
+      .then(() => {
+        toast.success(
+          "A password reset email is sent. Please check your email."
+        );
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
   };
 
   return (
@@ -68,7 +116,7 @@ const LoginPage = () => {
 
           {/* Login Form */}
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSignin}
             className="bg-base-200 rounded-xl shadow-lg p-8"
           >
             {/* Email Field */}
@@ -113,14 +161,13 @@ const LoginPage = () => {
             </div>
 
             {/* Remember & Forgot */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center"></div>
-              <Link
-                to="/forgot-password"
+            <div className="flex justify-end mb-6">
+              <button
+                onClick={handleForgot}
                 className="text-sm text-amber-600 hover:underline"
               >
                 Forgot password?
-              </Link>
+              </button>
             </div>
 
             {/* Submit Button */}
@@ -129,7 +176,7 @@ const LoginPage = () => {
               whileTap={{ scale: 0.98 }}
               type="submit"
               //   disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-[#ED6F2C] to-[#FF9D4D] text-white font-medium rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center"
+              className="w-full py-3 cursor-pointer px-4 bg-gradient-to-r from-[#ED6F2C] to-[#FF9D4D] text-white font-medium rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center"
             >
               Sign In
             </motion.button>
@@ -143,15 +190,16 @@ const LoginPage = () => {
             {/* Social Login */}
             <div className="flex gap-4 mb-6">
               <button
+                onClick={handleGoogleLogin}
                 type="button"
-                className="flex-1 py-2 px-4 border border-base-300 rounded-lg hover:bg-base-300 transition-colors flex items-center justify-center gap-2"
+                className="flex-1 cursor-pointer py-2 px-4 border border-base-300 rounded-lg hover:bg-base-300 transition-colors flex items-center justify-center gap-2"
               >
                 <FaGoogle className="text-red-500" />
                 <span>Google</span>
               </button>
               <button
                 type="button"
-                className="flex-1 py-2 px-4 border border-base-300 rounded-lg hover:bg-base-300 transition-colors flex items-center justify-center gap-2"
+                className="flex-1 cursor-pointer py-2 px-4 border border-base-300 rounded-lg hover:bg-base-300 transition-colors flex items-center justify-center gap-2"
               >
                 <FaFacebook className="text-blue-600" />
                 <span>Facebook</span>

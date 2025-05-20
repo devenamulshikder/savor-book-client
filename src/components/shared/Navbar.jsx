@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
+import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, logoutUser } = use(AuthContext);
+  console.log(user);
   const [theme, setTheme] = useState("light");
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -14,6 +18,16 @@ const Navbar = () => {
     } else {
       setTheme("light");
     }
+  };
+
+  const handleLogOut = () => {
+    logoutUser()
+      .then(() => {
+        toast.success("User Log Out Successfully!");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
   return (
     <div className="bg-base-100 shadow-sm top-0 sticky z-50">
@@ -155,26 +169,64 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="navbar-end text-lg gap-3 mr-3 md:gap-6 md:mr-6">
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"
-                  : " relative after:bg-[#ED6F2C] after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
-              }
-            >
-              Login
-            </NavLink>
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"
-                  : " relative after:bg-[#ED6F2C] after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
-              }
-            >
-              Register
-            </NavLink>
+            {!user ? (
+              <>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"
+                      : " relative after:bg-[#ED6F2C] after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
+                  }
+                >
+                  Login
+                </NavLink>
+                <NavLink
+                  to="/register"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"
+                      : " relative after:bg-[#ED6F2C] after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
+                  }
+                >
+                  Register
+                </NavLink>
+              </>
+            ) : (
+              <>
+                <div className="dropdown dropdown-end">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="w-10 rounded-full ring-primary ring-1 ring-offset-2 cursor-pointer">
+                      <img
+                        alt="Tailwind CSS Navbar component"
+                        src={user?.photoURL}
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                  >
+                    <Link
+                      className="p-1 lg:pl-3 ml-1 hover:bg-base-300 rounded-lg text-start"
+                      to={"/my-profile"}
+                    >
+                      My Profile
+                    </Link>
+                    <button
+                      onClick={handleLogOut}
+                      className="p-1 lg:pl-3 ml-1 hover:bg-base-300 rounded-lg text-start cursor-pointer"
+                    >
+                      Log Out
+                    </button>
+                  </ul>
+                </div>
+              </>
+            )}
           </div>
           <label className="cursor-pointer grid place-items-center">
             <input
