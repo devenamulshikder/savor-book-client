@@ -156,7 +156,7 @@ const Navbar = () => {
           </div>
           <div className="navbar-end text-lg gap-3 mr-3 md:gap-6 md:mr-6">
             <NavLink
-              to="/sdfsd"
+              to="/login"
               className={({ isActive }) =>
                 isActive
                   ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"
@@ -166,7 +166,7 @@ const Navbar = () => {
               Login
             </NavLink>
             <NavLink
-              to="/sdfsd"
+              to="/register"
               className={({ isActive }) =>
                 isActive
                   ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"
