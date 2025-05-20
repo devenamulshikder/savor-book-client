@@ -70,7 +70,7 @@ const Navbar = () => {
                   Home
                 </NavLink>
                 <NavLink
-                  to="/dsf"
+                  to="/allRecipes"
                   className={({ isActive }) =>
                     isActive
                       ? "text-[#ED6F2C] text-lg hover:bg-transparent border-0"
@@ -136,7 +136,7 @@ const Navbar = () => {
                 Home
               </NavLink>
               <NavLink
-                to="/dsf"
+                to="/allRecipes"
                 className={({ isActive }) =>
                   isActive
                     ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"
@@ -202,7 +202,8 @@ const Navbar = () => {
                     <div className="w-10 rounded-full ring-[#ED6F2C] ring-1 ring-offset-2 cursor-pointer">
                       <img
                         alt="Tailwind CSS Navbar component"
-                        src={user?.photoURL}
+                        referrerPolicy="no-referrer"
+                        src={user && user?.photoURL}
                       />
                     </div>
                   </div>

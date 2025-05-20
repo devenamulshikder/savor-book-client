@@ -1,6 +1,11 @@
 import { Link } from "react-router";
 import { MdArrowBack } from "react-icons/md";
+import toast from "react-hot-toast";
+import { use } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 const AddRecipe = () => {
+  const { user } = use(AuthContext);
+  const userEmail = user.email;
   const handleForm = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -25,6 +30,7 @@ const AddRecipe = () => {
       preparationTime: parseInt(preparationTime),
       categories,
       likeCount,
+      userEmail,
     };
     fetch("http://localhost:3000/savorBooks", {
       method: "POST",
@@ -35,7 +41,10 @@ const AddRecipe = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.insertedId) {
+          toast.success("Successfully Added New Recipe item!");
+          e.target.reset();
+        }
       });
   };
   return (

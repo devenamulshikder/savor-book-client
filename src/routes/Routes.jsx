@@ -7,6 +7,7 @@ import RegisterPage from "../pages/register/RegisterPage";
 import PrivateRoutes from "./PrivateRoutes";
 import AddRecipe from "../pages/addRecipe/AddRecipe";
 import Loading from "../components/shared/Loading";
+import AllRecipes from "../pages/allRecipes/AllRecipes";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +34,11 @@ export const router = createBrowserRouter([
             <AddRecipe />
           </PrivateRoutes>
         ),
-        hydrateFallbackElement: <Loading/>,
+        hydrateFallbackElement: <Loading />,
+      },
+      {
+        path: "/allRecipes",
+        Component: AllRecipes,
       },
     ],
   },
