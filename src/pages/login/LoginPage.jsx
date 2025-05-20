@@ -44,6 +44,7 @@ const LoginPage = () => {
 
   const handleForgot = () => {
     const email = emailRef.current.value;
+    console.log(email);
     setError("");
     forgotPassword(email)
       .then(() => {
@@ -131,6 +132,7 @@ const LoginPage = () => {
                 <input
                   id="email"
                   name="email"
+                  ref={emailRef}
                   type="email"
                   className={`w-full pl-10 pr-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-amber-500`}
                   placeholder="your@email.com"
@@ -164,6 +166,7 @@ const LoginPage = () => {
             <div className="flex justify-end mb-6">
               <button
                 onClick={handleForgot}
+                type="button"
                 className="text-sm text-amber-600 hover:underline"
               >
                 Forgot password?

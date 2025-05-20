@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logoutUser } = use(AuthContext);
-  console.log(user);
   const [theme, setTheme] = useState("light");
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -81,7 +80,7 @@ const Navbar = () => {
                   All Recipes
                 </NavLink>
                 <NavLink
-                  to="/sdfsd"
+                  to="/addRecipe"
                   className={({ isActive }) =>
                     isActive
                       ? "text-[#ED6F2C] text-lg hover:bg-transparent border-0"
@@ -147,7 +146,7 @@ const Navbar = () => {
                 All Recipes
               </NavLink>
               <NavLink
-                to="/sdfsd"
+                to="/addRecipe"
                 className={({ isActive }) =>
                   isActive
                     ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"
