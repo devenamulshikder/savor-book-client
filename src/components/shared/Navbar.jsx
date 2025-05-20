@@ -199,7 +199,7 @@ const Navbar = () => {
                     role="button"
                     className="btn btn-ghost btn-circle avatar"
                   >
-                    <div className="w-10 rounded-full ring-primary ring-1 ring-offset-2 cursor-pointer">
+                    <div className="w-10 rounded-full ring-[#ED6F2C] ring-1 ring-offset-2 cursor-pointer">
                       <img
                         alt="Tailwind CSS Navbar component"
                         src={user?.photoURL}
