@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
+import { use } from "react";
 import {
   FaUser,
   FaLock,
@@ -8,12 +9,74 @@ import {
   FaFacebook,
   FaLink,
 } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 const RegisterPage = () => {
-  const handleSubmit = (e) => {
+  const {
+    createUser,
+    setUser,
+    error,
+    setError,
+    updateUser,
+    googleLogIn,
+    setLoading,
+  } = use(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // google login
+  const handleGoogleLogin = () => {
+    setError("");
+    googleLogIn()
+      .then(() => {
+        toast.success("Google Login Successfully!");
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  };
+
+  // create user function
+  const handleCreateUser = (e) => {
     e.preventDefault();
-    
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photo = form.photo.value;
+    const password = form.password.value;
+    const userInfo = { name, email, photo, password };
+    setError("");
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return toast.error("Password must be at least 6 characters long");
+    } else if (!/[A-Z]/.test(password)) {
+      setError("Password must contain at least one uppercase letter");
+      return toast.error("Password must contain at least one uppercase letter");
+    } else if (!/[a-z]/.test(password)) {
+      setError("Password must contain at least one lowercase letter");
+      return toast.error("Password must contain at least one lowercase letter");
     }
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        updateUser({ displayName: name, photoURL: photo }).then(() => {
+          setUser({ ...user, displayName: name, photoURL: photo });
+        });
+        toast.success("User Created Successfully");
+        navigate(location?.state ? location.state : "/");
+        setLoading(false).catch((err) => {
+          toast.error(err.message);
+          setUser(user);
+        });
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -76,7 +139,7 @@ const RegisterPage = () => {
 
           {/* Registration Form */}
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleCreateUser}
             className="bg-base-200 rounded-xl shadow-lg p-8"
           >
             {/* Name Field */}
@@ -189,15 +252,16 @@ const RegisterPage = () => {
             {/* Social Login */}
             <div className="flex gap-4 mb-6">
               <button
+                onClick={handleGoogleLogin}
                 type="button"
-                className="flex-1 py-2 px-4 border border-base-300 rounded-lg hover:bg-base-300 transition-colors flex items-center justify-center gap-2"
+                className="flex-1 cursor-pointer py-2 px-4 border border-base-300 rounded-lg hover:bg-base-300 transition-colors flex items-center justify-center gap-2"
               >
                 <FaGoogle className="text-red-500" />
                 <span>Google</span>
               </button>
               <button
                 type="button"
-                className="flex-1 py-2 px-4 border border-base-300 rounded-lg hover:bg-base-300 transition-colors flex items-center justify-center gap-2"
+                className="flex-1 cursor-pointer py-2 px-4 border border-base-300 rounded-lg hover:bg-base-300 transition-colors flex items-center justify-center gap-2"
               >
                 <FaFacebook className="text-blue-600" />
                 <span>Facebook</span>
