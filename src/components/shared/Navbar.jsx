@@ -2,7 +2,7 @@ import { use, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
-
+import { Tooltip } from "react-tooltip";
 const Navbar = () => {
   const { user, logoutUser } = use(AuthContext);
   const [theme, setTheme] = useState("light");
@@ -193,7 +193,11 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <div className="dropdown dropdown-end">
+                <Tooltip
+                  anchorSelect="#my-anchor-element"
+                  content="User Profile"
+                />
+                <div className="dropdown dropdown-end ">
                   <div
                     tabIndex={0}
                     role="button"
@@ -201,6 +205,7 @@ const Navbar = () => {
                   >
                     <div className="w-10 rounded-full ring-[#ED6F2C] ring-1 ring-offset-2 cursor-pointer">
                       <img
+                        id="my-anchor-element"
                         alt="Tailwind CSS Navbar component"
                         referrerPolicy="no-referrer"
                         src={user && user?.photoURL}
@@ -211,12 +216,9 @@ const Navbar = () => {
                     tabIndex={0}
                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                   >
-                    <Link
-                      className="p-1 lg:pl-3 ml-1 hover:bg-base-300 rounded-lg text-start"
-                      to={"/my-profile"}
-                    >
-                      My Profile
-                    </Link>
+                    <p className="p-1 lg:pl-3 ml-1 hover:bg-base-300 rounded-lg text-start">
+                      {user?.displayName}
+                    </p>
                     <button
                       onClick={handleLogOut}
                       className="p-1 lg:pl-3 ml-1 hover:bg-base-300 rounded-lg text-start cursor-pointer"

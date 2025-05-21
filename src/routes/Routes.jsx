@@ -8,6 +8,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import AddRecipe from "../pages/addRecipe/AddRecipe";
 import Loading from "../components/shared/Loading";
 import AllRecipes from "../pages/allRecipes/AllRecipes";
+import RecipeDetails from "../pages/recipeDetailsPage/RecipeDetails";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,15 @@ export const router = createBrowserRouter([
       {
         path: "/allRecipes",
         Component: AllRecipes,
+      },
+      {
+        path: "/recipeDetails/:id",
+        loader: ({ params }) => fetch(`http://localhost:3000/savorBooks/${params.id}`),
+        element: (
+          <PrivateRoutes>
+            <RecipeDetails />
+          </PrivateRoutes>
+        ),
       },
     ],
   },

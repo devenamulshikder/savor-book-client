@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { FaClock, FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 const OurBestRecipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -118,13 +119,15 @@ const OurBestRecipes = () => {
                   </div>
                 </div>
 
-                <motion.button
-                  whileHover={hoverButton}
-                  whileTap={{ scale: 0.95 }}
-                  className="mt-6 cursor-pointer w-full py-2 bg-gradient-to-r from-[#ED6F2C] to-[#FF9D4D] text-white rounded-lg font-medium"
-                >
-                  See Details
-                </motion.button>
+              <Link to={`/recipeDetails/${recipe._id}`}>
+                  <motion.button
+                    whileHover={hoverButton}
+                    whileTap={{ scale: 0.95 }}
+                    className="mt-6 cursor-pointer w-full py-2 bg-gradient-to-r from-[#ED6F2C] to-[#FF9D4D] text-white rounded-lg font-medium"
+                  >
+                    See Details
+                  </motion.button>
+              </Link>
               </div>
             </motion.div>
           ))}
