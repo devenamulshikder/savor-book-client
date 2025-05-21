@@ -1,27 +1,43 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { use, useState } from "react";
 import { useLoaderData } from "react-router";
 import { FaClock, FaHeart, FaUtensils } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const RecipeDetails = () => {
+  const { user } = use(AuthContext);
   const recipeData = useLoaderData();
   const [like, setLike] = useState(recipeData.likeCount);
-
   const {
     title,
+    _id,
+    userEmail,
     preparationTime,
-    likeCount,
     instructions,
     ingredients,
     image,
     cuisineType,
     categories,
   } = recipeData;
-
   const handleLike = () => {
-    setLike((prev) => prev + 1);
-    // Here you would typically update the like count in your database
+    setLike(like + 1);
+    fetch(`http://localhost:3000/savorBooks/${_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        likeCount: like,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          toast.success("Thank you for liking this recipe!");
+        }
+      });
   };
 
   return (
@@ -35,7 +51,7 @@ const RecipeDetails = () => {
       <div className="flex justify-end items-center gap-2 mb-8">
         <FaHeart className="text-red-500" />
         <span className="text-lg font-medium text-gray-700">
-          {likeCount} people love this recipe
+          {like} people love this recipe
         </span>
       </div>
 
@@ -178,9 +194,10 @@ const RecipeDetails = () => {
             onClick={handleLike}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full py-3 cursor-pointer bg-gradient-to-r from-[#ED6F2C] to-[#FF9D4D] text-white rounded-lg font-medium hover:shadow-lg transition-all"
+            disabled={user.email === userEmail}
+            className="w-full py-3 disabled:cursor-not-allowed cursor-pointer bg-gradient-to-r from-[#ED6F2C] to-[#FF9D4D] text-white rounded-lg font-medium hover:shadow-lg transition-all"
           >
-            Like This Recipe ({like})
+            Like This Recipe
           </motion.button>
         </motion.div>
       </div>
