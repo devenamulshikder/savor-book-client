@@ -8,7 +8,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import AddRecipe from "../pages/addRecipe/AddRecipe";
 import Loading from "../components/shared/Loading";
 import AllRecipes from "../pages/allRecipes/AllRecipes";
-import RecipeDetails from "../pages/recipeDetailsPage/RecipeDetails";
+import RecipeDetails from "../pages/seeDetailsPage/RecipeDetails";
 
 export const router = createBrowserRouter([
   {

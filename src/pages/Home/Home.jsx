@@ -1,12 +1,11 @@
 import Banner from "../../components/bannerSec/Banner";
 import ClientReviews from "../../components/clientReviews/ClientReviews";
-import OurBestRecipes from "../../components/ourBestRecipes/OurBestRecipes";
-
+import TopRecipes from "../../components/topRecipes/TopRecipes";
 
 const Home = () => {
   return <div>
     <Banner/>
-    {/* <OurBestRecipes/> */}
+    <TopRecipes/>
     <ClientReviews/>
   </div>;
 };
