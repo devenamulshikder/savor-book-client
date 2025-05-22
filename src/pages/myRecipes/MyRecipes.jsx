@@ -30,6 +30,7 @@ const MyRecipes = () => {
           <MySingleRecipe
             key={recipe._id}
             recipe={recipe}
+            recipes={recipes}
             setRecipes={setRecipes}
           />
         ))}
