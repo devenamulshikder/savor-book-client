@@ -2,19 +2,17 @@
 import { FaClock, FaHeart, FaEdit, FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
-
-
-
+import { useState } from "react";
+import UpdateRecipeModal from "../../components/modal/UpdateRecipeModal";
 const MySingleRecipe = ({ recipe,recipes, setRecipes }) => {
-
-
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     _id,
     title,
     preparationTime,
     likeCount,
     instructions,
+    ingredients,
     image,
     cuisineType,
     categories,
@@ -48,7 +46,44 @@ const hoverButton = {
 };
 
   // Placeholder functions - replace with your actual handlers
-  const handleUpdate = () => console.log("Update recipe", _id);
+  const handleUpdate = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleUpdateSubmit = (updatedRecipe) => {
+    fetch(`http://localhost:3000/savorBooks/${updatedRecipe._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedRecipe),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            title: "Success!",
+            text: "Recipe has been updated.",
+            icon: "success",
+          });
+          // Update the recipes state
+          const updatedRecipes = recipes.map((r) =>
+            r._id === updatedRecipe._id ? updatedRecipe : r
+          );
+          setRecipes(updatedRecipes);
+          setIsModalOpen(false);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating recipe:", error);
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to update recipe.",
+          icon: "error",
+        });
+      });
+  };
+
   const handleDelete = (id) =>{
     Swal.fire({
       title: "Are you sure?",
@@ -79,7 +114,6 @@ const hoverButton = {
     });
    
   } 
-  const handleLike = () => console.log("Like recipe", _id);
 
   return (
     <section className="p-4">
@@ -102,7 +136,6 @@ const hoverButton = {
             <span>{likeCount}</span>
           </div>
         </div>
-
         {/* Recipe Content */}
         <div className="p-6">
           {/* Title and Cuisine */}
@@ -115,7 +148,7 @@ const hoverButton = {
 
           {/* Meta Information */}
           <div className="flex flex-wrap gap-2 mb-4">
-            <div className="flex items-center text-sm text-base-content/80 bg-white px-3 py-1 rounded-full">
+            <div className="flex items-center text-sm bg-white text-black px-3 py-1 rounded-full">
               <FaClock className="mr-1 text-amber-500" />
               {preparationTime} mins
             </div>
@@ -123,7 +156,7 @@ const hoverButton = {
             {categories.map((category, index) => (
               <motion.span
                 key={index}
-                className="text-xs bg-white px-2 py-1 rounded-full"
+                className="text-xs text-black bg-white px-2 py-1 rounded-full"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1 * index }}
@@ -137,7 +170,7 @@ const hoverButton = {
           <div className="mb-4">
             <h4 className="text-sm font-semibold mb-1">Ingredients:</h4>
             <ul className="text-sm text-base-content/80 line-clamp-2">
-              {instructions.slice(0, 2).map((item, i) => (
+              {ingredients.slice(0, 4).map((item, i) => (
                 <motion.li
                   key={i}
                   className="truncate"
@@ -148,9 +181,9 @@ const hoverButton = {
                   • {item}
                 </motion.li>
               ))}
-              {instructions.length > 2 && (
+              {ingredients.length > 2 && (
                 <li className="text-amber-600">
-                  + {instructions.length - 2} more
+                  + {ingredients.length - 4} more
                 </li>
               )}
             </ul>
@@ -160,7 +193,7 @@ const hoverButton = {
           <div className="mb-4">
             <h4 className="text-sm font-semibold mb-1">Instructions:</h4>
             <ul className="text-sm text-base-content/80 line-clamp-2">
-              {instructions.slice(0, 2).map((item, i) => (
+              {instructions.slice(0, 3).map((item, i) => (
                 <motion.li
                   key={i}
                   className="truncate"
@@ -191,7 +224,7 @@ const hoverButton = {
               </motion.button>
 
               <motion.button
-                onClick={()=>handleDelete(_id)}
+                onClick={() => handleDelete(_id)}
                 variants={hoverButton}
                 whileHover="hover"
                 whileTap={{ scale: 0.95 }}
@@ -204,6 +237,15 @@ const hoverButton = {
           </div>
         </div>
       </motion.div>
+
+      {/* Modal for updating recipe */}
+      {isModalOpen && (
+        <UpdateRecipeModal
+          recipe={recipe}
+          onClose={() => setIsModalOpen(false)}
+          onUpdate={handleUpdateSubmit}
+        />
+      )}
     </section>
   );
 };
