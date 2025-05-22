@@ -156,7 +156,7 @@ const Navbar = () => {
                 Add Recipe
               </NavLink>
               <NavLink
-                to="/sdfsd"
+                to="/myRecipes"
                 className={({ isActive }) =>
                   isActive
                     ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"

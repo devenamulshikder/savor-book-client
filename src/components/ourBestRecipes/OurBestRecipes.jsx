@@ -70,9 +70,7 @@ const OurBestRecipes = () => {
       <div className="container mx-auto">
         {/* Dropdown in top right */}
         <div className="flex justify-between items-center mb-6">
-          <div>
-
-          </div>
+          <div></div>
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
