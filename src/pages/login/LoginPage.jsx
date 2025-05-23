@@ -65,6 +65,7 @@ const LoginPage = () => {
       className="min-h-screen flex"
     >
       {/* Left Side - Image */}
+      <title>Savor Book | Login</title>
       <motion.div
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}

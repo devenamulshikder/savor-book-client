@@ -1,11 +1,11 @@
 import { initializeApp } from "firebase/app";
 const firebaseConfig = {
-  apiKey: "AIzaSyAfWv-r6WKulHQN7PZO-pmGn2auxqAnftY",
-  authDomain: "savor-book.firebaseapp.com",
-  projectId: "savor-book",
-  storageBucket: "savor-book.firebasestorage.app",
-  messagingSenderId: "1055618952567",
-  appId: "1:1055618952567:web:cda741d974f2d062370572",
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 const app = initializeApp(firebaseConfig);
 export default app;

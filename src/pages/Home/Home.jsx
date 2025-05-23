@@ -5,6 +5,7 @@ import TopRecipes from "../../components/topRecipes/TopRecipes";
 
 const Home = () => {
   return <div>
+    <title>Savor Book | Home</title>
     <Banner/>
     <TopRecipes/>
     <ClientReviews/>

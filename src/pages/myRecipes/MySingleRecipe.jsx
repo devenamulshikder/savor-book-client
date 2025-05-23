@@ -122,6 +122,7 @@ const hoverButton = {
         whileHover={{ y: -5 }}
         className="bg-base-200 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
       >
+        <title>Savor Book | My Recipes</title>
         {/* Recipe Image */}
         <div className="relative h-48 overflow-hidden">
           <motion.img

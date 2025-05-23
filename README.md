@@ -1,12 +1,32 @@
-# React + Vite
+# Savor Book - Recipe Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Project Banner](https://i.ibb.co/CKmNMzv8/Screenshot-2.png)
 
-Currently, two official plugins are available:
+Savor Book is a modern recipe management application built with React, Tailwind CSS, and Firebase. It allows users to browse, create, update, and delete recipes with a beautiful user interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- 🍳 Create and manage recipes with images
+- 🔍 Browse recipes by categories and cuisine types
+- ⚡ Fast and responsive design with Tailwind CSS
+- ✨ Smooth animations with Framer Motion
+- 🔄 Real-time updates & Delete
+- 🔒 User authentication 
+- 📱 Mobile-friendly interface
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+### Core Technologies
+- [React 19](https://react.dev/)
+- [Vite](https://vitejs.dev/) - Next generation frontend tooling
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [DaisyUI](https://daisyui.com/) - Tailwind CSS components
+- [Firebase](https://firebase.google.com/) - Backend services
+
+### Key Libraries
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
+- [React Icons](https://react-icons.github.io/react-icons/) - Icon library
+- [React Hot Toast](https://react-hot-toast.com/) - Notifications
+- [SweetAlert2](https://sweetalert2.github.io/) - Beautiful alerts
+- [Swiper](https://swiperjs.com/) - Touch slider
+- [React Router](https://reactrouter.com/) - Client-side routing
