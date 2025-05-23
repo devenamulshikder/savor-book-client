@@ -78,7 +78,6 @@ const hoverButton = {
         }
       })
       .catch((error) => {
-        console.error("Error updating recipe:", error);
         Swal.fire({
           title: "Error!",
           text: "Failed to update recipe.",

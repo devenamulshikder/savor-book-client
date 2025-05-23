@@ -44,7 +44,6 @@ const LoginPage = () => {
 
   const handleForgot = () => {
     const email = emailRef.current.value;
-    console.log(email);
     setError("");
     forgotPassword(email)
       .then(() => {
