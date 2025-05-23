@@ -4,9 +4,9 @@ import { FaClock, FaHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { SiIfood } from "react-icons/si";
-const topRecipesPromise = fetch("http://localhost:3000/savorBooksTop").then(
-  (res) => res.json()
-);
+const topRecipesPromise = fetch(
+  "https://savor-book-server.vercel.app/savorBooksTop"
+).then((res) => res.json());
 const TopRecipes = () => {
   const recipes = use(topRecipesPromise);
   const container = {

@@ -32,7 +32,7 @@ const AddRecipe = () => {
       likeCount,
       userEmail,
     };
-    fetch("http://localhost:3000/savorBooks", {
+    fetch("https://savor-book-server.vercel.app/savorBooks", {
       method: "POST",
       headers: {
         "content-type": "application/json",

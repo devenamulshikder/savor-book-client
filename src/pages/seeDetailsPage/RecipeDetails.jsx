@@ -23,7 +23,7 @@ const RecipeDetails = () => {
   } = recipeData;
   const handleLike = () => {
     setLike(like + 1);
-    fetch(`http://localhost:3000/savorBooks/${_id}`, {
+    fetch(`https://savor-book-server.vercel.app/savorBooks/${_id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

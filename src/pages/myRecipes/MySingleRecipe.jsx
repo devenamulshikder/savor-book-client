@@ -51,13 +51,16 @@ const hoverButton = {
   };
 
   const handleUpdateSubmit = (updatedRecipe) => {
-    fetch(`http://localhost:3000/savorBooks/${updatedRecipe._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedRecipe),
-    })
+    fetch(
+      `https://savor-book-server.vercel.app/savorBooks/${updatedRecipe._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedRecipe),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -95,7 +98,7 @@ const hoverButton = {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/savorBooks/${id}`, {
+        fetch(`https://savor-book-server.vercel.app/savorBooks/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -107,7 +110,7 @@ const hoverButton = {
                 icon: "success",
               });
               const remainingRecipes = recipes.filter((rec) => rec._id !== id);
-              setRecipes(remainingRecipes)
+              setRecipes(remainingRecipes);
             }
           });
       }

@@ -5,7 +5,7 @@ const MyRecipes = () => {
   const { user } = use(AuthContext);
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:3000/savorBooks/user/${user?.email}`)
+    fetch(`https://savor-book-server.vercel.app/savorBooks/user/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setRecipes(data);

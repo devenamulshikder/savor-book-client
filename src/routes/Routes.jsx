@@ -45,7 +45,7 @@ export const router = createBrowserRouter([
       {
         path: "/recipeDetails/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/savorBooks/${params.id}`),
+          fetch(`https://savor-book-server.vercel.app/savorBooks/${params.id}`),
         element: (
           <PrivateRoutes>
             <RecipeDetails />

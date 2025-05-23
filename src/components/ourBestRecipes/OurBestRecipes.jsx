@@ -18,7 +18,7 @@ const OurBestRecipes = () => {
   ];
 
   useEffect(() => {
-    fetch("http://localhost:3000/savorBooks")
+    fetch("https://savor-book-server.vercel.app/savorBooks")
       .then((res) => res.json())
       .then((data) => setRecipes(data));
   }, []);
