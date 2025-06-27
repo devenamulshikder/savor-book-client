@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   FiMenu,
   FiX,
@@ -10,8 +10,10 @@ import {
   FiSettings,
   FiLogOut,
 } from "react-icons/fi";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Sidebar = () => {
+  const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -31,7 +33,13 @@ const Sidebar = () => {
   }, []);
 
   const handleLogout = () => {
-    navigate("/login");
+    logoutUser()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Logout failed:", error);
+      });
   };
 
   const toggleSidebar = () => {
@@ -125,8 +133,14 @@ const Sidebar = () => {
             {/* Bottom Section */}
             <div className="p-4 border-t text-black">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-8 h-8 rounded-full bg-gray-300"></div>
-                <span>User Name</span>
+                <div className="w-8 h-8 rounded-full bg-gray-300">
+                  <img
+                    src={user?.photoURL || "https://via.placeholder.com/150"}
+                    alt="User Avatar"
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                </div>
+                <span>{user?.displayName}</span>
               </div>
               <button
                 onClick={handleLogout}
