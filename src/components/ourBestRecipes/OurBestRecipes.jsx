@@ -66,7 +66,7 @@ const OurBestRecipes = () => {
       : recipes.filter((recipe) => recipe.cuisineType === selectedCuisine);
 
   return (
-    <section className="py-12 px-4 bg-base-100">
+    <section className="py-12 px-4">
       <div className="container mx-auto">
         {/* Dropdown in top right */}
         <div className="flex justify-between items-center mb-6">

@@ -74,11 +74,18 @@ export const router = createBrowserRouter([
         index: true,
         Component: Homes,
       },
+      {},
       {
+        path: "/dashboard/myRecipes",
+        Component: MyRecipes,
       },
       {
-        path: "/dashboard/page",
-        Component: DashboardPage,
+        path: "/dashboard/allRecipes",
+        Component: AllRecipes,
+      },
+      {
+        path: "/dashboard/addRecipe",
+        Component: AddRecipe,
       },
     ],
   },

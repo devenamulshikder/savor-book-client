@@ -5,11 +5,12 @@ import toast from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 const Navbar = () => {
   const { user, logoutUser } = use(AuthContext);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(()=>{
+    return localStorage.getItem("theme") || "light";
+  })
   useEffect(() => {
     localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem("theme");
-    document.querySelector("html").setAttribute("data-theme", localTheme);
+    document.querySelector("html").setAttribute("data-theme", theme);
   }, [theme]);
   const handleToggle = (e) => {
     if (e.target.checked) {
@@ -262,6 +263,7 @@ const Navbar = () => {
             <input
               onChange={handleToggle}
               type="checkbox"
+              checked = {theme === "dark"}
               className="toggle theme-controller row-start-1 col-start-1 col-span-2 "
             />
             <svg

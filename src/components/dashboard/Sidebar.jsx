@@ -7,10 +7,11 @@ import {
   FiX,
   FiHome,
   FiBook,
-  FiSettings,
   FiLogOut,
 } from "react-icons/fi";
+import { GiMinerals } from "react-icons/gi";
 import { AuthContext } from "../../providers/AuthProvider";
+import { MdOutlinePostAdd } from "react-icons/md";
 
 const Sidebar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -113,19 +114,19 @@ const Sidebar = () => {
                   text="Home"
                 />
                 <SidebarItem
-                  to="/allRecipes"
+                  to="/dashboard/allRecipes"
                   icon={<FiBook size={20} />}
-                  text="Recipes"
+                  text="All Recipes"
                 />
                 <SidebarItem
-                  to="/dashboard/settings"
-                  icon={<FiSettings size={20} />}
-                  text="Settings"
+                  to="/dashboard/addRecipe"
+                  icon={<MdOutlinePostAdd size={20} />}
+                  text="Add Recipe"
                 />
                 <SidebarItem
-                  to="/dashboard/page"
-                  icon={<FiSettings size={20} />}
-                  text="Settings"
+                  to="/dashboard/myRecipes"
+                  icon={<GiMinerals size={20} />}
+                  text="My Recipes"
                 />
               </ul>
             </nav>

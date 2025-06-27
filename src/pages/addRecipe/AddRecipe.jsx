@@ -5,7 +5,7 @@ import { use } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 const AddRecipe = () => {
   const { user } = use(AuthContext);
-  const userEmail = user.email;
+  const userEmail = user?.email;
   const handleForm = (e) => {
     e.preventDefault();
     const form = e.target;
