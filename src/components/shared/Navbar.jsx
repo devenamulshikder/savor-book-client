@@ -90,7 +90,7 @@ const Navbar = () => {
                   Add Recipe
                 </NavLink>
                 <NavLink
-                  to="/sdfsd"
+                  to="/myRecipes"
                   className={({ isActive }) =>
                     isActive
                       ? "text-[#ED6F2C] text-lg hover:bg-transparent border-0"
@@ -99,6 +99,20 @@ const Navbar = () => {
                 >
                   My Recipes
                 </NavLink>
+                {user && (
+                  <>
+                    <NavLink
+                      to="/dashboard"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-[#ED6F2C] text-lg hover:bg-transparent border-0"
+                          : " relative cursor-pointer"
+                      }
+                    >
+                      Dashboard
+                    </NavLink>
+                  </>
+                )}
               </ul>
             </div>
             <div className="navbar-start hidden lg:flex">
@@ -165,6 +179,20 @@ const Navbar = () => {
               >
                 My Recipes
               </NavLink>
+              {user && (
+                <>
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-[#ED6F2C] text-lg hover:bg-transparent border-b-2 border-0"
+                        : " relative after:bg-[#ED6F2C] after:absolute after:h-0.5 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
+                    }
+                  >
+                    Dashboard
+                  </NavLink>
+                </>
+              )}
             </ul>
           </div>
           <div className="navbar-end text-lg gap-3 mr-3 md:gap-6 md:mr-6">

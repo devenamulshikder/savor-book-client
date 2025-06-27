@@ -10,6 +10,9 @@ import Loading from "../components/shared/Loading";
 import AllRecipes from "../pages/allRecipes/AllRecipes";
 import RecipeDetails from "../pages/seeDetailsPage/RecipeDetails";
 import MyRecipes from "../pages/myRecipes/MyRecipes";
+import DashboardPage from "../pages/DashboardPage/DashboardPage";
+import DashboardLayout from "../layouts/DashboardLayout";
+import Homes from "../pages/DashboardPage/Homes";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +62,23 @@ export const router = createBrowserRouter([
             <MyRecipes />
           </PrivateRoutes>
         ),
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    Component: DashboardLayout,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        Component: Homes,
+      },
+      {
+      },
+      {
+        path: "/dashboard/page",
+        Component: DashboardPage,
       },
     ],
   },
